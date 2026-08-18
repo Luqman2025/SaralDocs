@@ -1,0 +1,31 @@
+{
+  "model_name_or_path": "best_model",
+  "tokenizer_path": "tokenizer",
+  "label2id": {
+    "LOW": 0,
+    "MEDIUM": 1,
+    "HIGH": 2
+  },
+  "id2label": {
+    "0": "LOW",
+    "1": "MEDIUM",
+    "2": "HIGH"
+  },
+  "best_backbone": "nlpaueb/legal-bert-base-uncased",
+  "best_experiment": "A_text_only",
+  "max_length": 256,
+  "stride": 64,
+  "confidence_threshold": 0.6,
+  "aggregation": {
+    "severity_weights": {
+      "LOW": 1.0,
+      "MEDIUM": 2.0,
+      "HIGH": 3.0
+    },
+    "high_clause_bonus": 0.2
+  },
+  "notes": [
+    "Model is for potential risk screening, not legal advice.",
+    "Synthetic/pattern-grounded performance does not establish real-world legal-risk accuracy."
+  ]
+}

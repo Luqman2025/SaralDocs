@@ -20,7 +20,7 @@ The trained Legal-BERT risk model is not included in this repository because the
 
 Download the trained model from Google Drive:
 
-**[Download Saral Docs Legal-BERT Model](YOUR_GOOGLE_DRIVE_LINK)**
+**[Download Saral Docs Legal-BERT Model](https://drive.google.com/file/d/1XrYl_tiavXiU-jkV-1M8f40A3YDvrhwJ/view?usp=drive_link)**
 
 After downloading, place the model file at:
 

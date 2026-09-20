@@ -101,13 +101,31 @@ SaralDocs/
 └── README.md
 ```
 
-## Getting Started
+## Model Download
 
-### Requirements
+The trained Legal-BERT risk model is not included in this repository because the model file exceeds GitHub's 100 MB file size limit.
 
-- Python 3.x
-- Node.js and npm
-- Git
+Download the trained model from Google Drive:
+
+**[Download Saral Docs Legal-BERT Model](YOUR_GOOGLE_DRIVE_LINK)**
+
+After downloading, place the model file at:
+
+```text
+backend/model/model.safetensors
+```
+
+The backend requires this model file to perform clause-level risk classification.
+
+> Make sure the Google Drive file is shared as **Anyone with the link → Viewer** so that users can access it.
+
+## Requirements
+
+Before running the project, make sure you have:
+
+* Python 3.x
+* Node.js and npm
+* Git
 
 ### Clone the repository
 

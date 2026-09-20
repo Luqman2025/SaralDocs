@@ -35,29 +35,31 @@ Saral Docs helps non-lawyers understand what they're signing. Upload a contract,
 Legal documents are written for lawyers, not for the people signing them. Most people accept terms they don't fully understand because reading a 12-page lease clause-by-clause isn't realistic. Saral Docs closes that gap: it reads the document the way a legal analyst would, and surfaces *which specific clauses* carry risk and *how much*, instead of a vague "read carefully" warning.
 
 ## Architecture
-
+ 
 ```mermaid
-flowchart LR
-    U([User]) -->|Selects or drops PDF / DOCX / TXT| FE[React Frontend]
-    FE -->|POST /process<br/>multipart file| API[Flask API]
-
-    subgraph Backend["Backend request pipeline"]
-        direction TB
-        API --> PARSE[Document parser<br/>pypdf / python-docx / text decoding]
-        PARSE --> CLEAN[Text cleaning]
-        CLEAN --> SEG[Clause segmentation]
-        SEG --> CHUNK[Tokenizer-aware chunking<br/>max 500 analysis units]
-        CHUNK --> MODEL[Local transformer classifier<br/>3 labels: LOW / MEDIUM / HIGH]
-        MODEL --> REASON[Reference-pattern matching<br/>high-risk explanations]
-        REASON --> AGG[Risk summary<br/>score, counts, overall risk]
-        AGG --> RESPONSE[Frontend response JSON]
-    end
-
-    RESPONSE --> FE
-    FE -->|Displays summary and clause explanations| U
-    FE -.->|GET /health| API
-
-    style Backend fill:#f5f5ff,stroke:#2b6f44,stroke-width:1px
+flowchart TD
+    U([User]) -->|"Selects or drops<br/>PDF / DOCX / TXT"| FE[React Frontend]
+    FE -->|"POST /process<br/>multipart file"| API[Flask API]
+    API -->|"GET /health"| FE
+ 
+    API --> PARSE["Document Parser<br/><sub>pypdf / python-docx / text decoding</sub>"]
+    PARSE --> CLEAN[Text Cleaning]
+    CLEAN --> SEG[Clause Segmentation]
+    SEG --> CHUNK["Tokenizer-Aware Chunking<br/><sub>max 500 tokens</sub>"]
+    CHUNK --> MODEL["Local Transformer Classifier<br/><sub>3 labels: LOW / MEDIUM / HIGH</sub>"]
+    MODEL --> REF["Reference-Pattern Matching<br/><sub>high-risk explanations</sub>"]
+    REF --> SUMMARY["Risk Summary<br/><sub>score, counts, overall risk</sub>"]
+    SUMMARY -->|"Frontend response JSON"| FE
+    FE -->|"Displays summary and<br/>clause explanations"| U
+ 
+    style API fill:#1e2937,stroke:#8A2BE2,color:#fff
+    style PARSE fill:#1e2937,stroke:#8A2BE2,color:#fff
+    style CLEAN fill:#1e2937,stroke:#8A2BE2,color:#fff
+    style SEG fill:#1e2937,stroke:#8A2BE2,color:#fff
+    style CHUNK fill:#1e2937,stroke:#8A2BE2,color:#fff
+    style MODEL fill:#3b2450,stroke:#c39bd3,color:#fff
+    style REF fill:#3b2450,stroke:#c39bd3,color:#fff
+    style SUMMARY fill:#1e2937,stroke:#2ecc71,color:#fff
 ```
 
 **Flow summary:**
